@@ -1,0 +1,174 @@
+<html>
+<head>
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="regstyle.css">
+    <style>
+        h1 {
+            color: red; 
+        }
+    </style>
+</head>
+<body>
+    <marquee direction="right" behavior="alternate" scrollamount="6">
+        <h1>WELCOME TO THE FRESHERS WORLD ! ! !</h1>
+    </marquee>
+    <center>
+        <form name="registrationForm" action="#" method="post" onsubmit="return validateForm()">
+            <table border="1">
+                <tr>
+                    <th colspan="3">REGISTRATION FORM</th>
+                </tr>
+                <tr>
+                    <td><label for="fname">NAME:</label></td>
+                    <td colspan="2"><input type="text" id="fname" name="fname"></td>
+                </tr>
+                <tr>
+                    <td><label for="age">AGE:</label></td>
+                    <td colspan="2">
+                        <select id="age" name="age">
+                            <option value="">SELECT</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="passcode">PASSWORD:</label></td>
+                    <td colspan="2"><input type="password" id="passcode" name="passcode"></td>
+                </tr>
+                <tr>
+                    <td><label for="repasscode">RETYPE PASSWORD:</label></td>
+                    <td colspan="2"><input type="password" id="repasscode" name="repasscode"></td>
+                </tr>
+                <tr>
+                    <td><label>SELECT YOUR SECURITY QUESTION:</label></td>
+                    <td colspan="2">
+                        <input type="radio" name="security_question" value="pet_name" >
+                        <label>What is your pet's name?</label><br>
+                        <input type="radio" name="security_question" value="best_friend">
+                        <label>Who is your best friend?</label><br>
+                        <input type="radio" name="security_question" value="favorite_color">
+                        <label>What is your favorite color?</label><br>
+                        <input type="radio" name="security_question" value="favorite_teacher">
+                        <label>Who is your favorite teacher?</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="email">EMAIL ID:</label></td>
+                    <td colspan="2"><input type="email" id="email" name="email" /></td>
+                </tr>
+                <tr>
+                    <td><label>LANGUAGES KNOWN:</label></td>
+                    <td colspan="2">
+                        <input type="checkbox" id="l1" name="languages" value="malayalam"/> MALAYALAM
+                        <input type="checkbox" id="l2" name="languages" value="english"/> ENGLISH
+                        <input type="checkbox" id="l3" name="languages" value="hindi"/> HINDI
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2">PHONE NUMBER</td>
+                    <td>HOME</td>
+                    <td>OFFICE</td>
+                </tr>
+                <tr>
+                    <td><input type="text" id="phone" name="phone"/></td>
+                    <td><input type="text" id="office" name="office" /></td>
+                </tr>
+                <tr>
+                    <td rowspan="2">ADDRESS</td>
+                    <td>PERMANENT ADDRESS</td>
+                    <td>TEMPORARY ADDRESS</td>
+                </tr>
+                <tr>
+                    <td><textarea rows="4" cols="16" name="permanent_address" ></textarea></td>
+                    <td><textarea rows="4" cols="16" name="temporary_address"></textarea></td>
+                </tr>
+                <tr>
+                    <td>UPLOAD CV</td>
+                    <td colspan="2">
+                        <input type="file" id="file" name="file"/> No file chosen
+                    </td>
+                </tr>
+                <tr>
+                    <td><center><button type="reset" id="reset">Reset</button></center></td>
+                    <td colspan="2"><center><button type="submit" style="background-color:Green;">Submit</button></center></td>
+                </tr>
+            </table>
+        </form>
+       <script>
+    function validateForm() {
+        var fname = document.registrationForm.fname.value.();
+        var email = document.registrationForm.email.value.();
+        var phone = document.registrationForm.phone.value.();
+        var office = document.registrationForm.office.value.();
+        var passcode = document.registrationForm.passcode.value;
+        var repasscode = document.registrationForm.repasscode.value;
+        var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        var ren = /[0-9!@#$%^&*]/
+        var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; 
+
+        if (fname == "") 
+        {
+            alert("Enter First Name !!");
+            document.registrationForm.fname.focus();
+            return false;
+        }
+        else if(ren.test(fname))
+        {
+		alert("Enter Valid Name !!");
+		document.form.fname.focus();
+		return false;
+		}
+
+        if (email == "") {
+            alert("Enter email!!");
+            document.registrationForm.email.focus();
+            return false;
+        } else if (!emailPattern.test(email)) {
+            alert("Enter Valid email id !!");
+            document.registrationForm.email.focus();
+            return false;
+        }
+         if (passcode == "" || passcode.length < 8 || !re.test(passcode)) {
+            alert("Password must be at least 8 characters long and include at least one lowercase letter, uppercase letter, digit, and special character.");
+            document.registrationForm.passcode.focus();
+            return false;
+        }
+
+        if (repasscode == "" || repasscode.length < 8 || !re.test(repasscode)) {
+            alert("Password must be at least 8 characters long and include at least one lowercase letter, uppercase letter, digit, and special character.");
+            document.registrationForm.repasscode.focus();
+            return false;
+        }
+
+        if (repasscode !== passcode) {
+            alert("Password Mismatched !!!");
+            document.registrationForm.passcode.focus();
+            document.registrationForm.repasscode.focus();
+            return false;
+        }
+
+        if (phone == "" || isNaN(phone) || phone.length !== 10) {
+            alert("Enter valid Mobile number (10 digits)");
+            document.registrationForm.phone.focus();
+            return false;
+        }
+
+        if (office == "" || isNaN(office) || office.length !== 10) {
+            alert("Enter valid Office number (10 digits)");
+            document.registrationForm.office.focus();
+            return false;
+        }
+        if (address == "") 
+        {
+            alert("Enter Address !!");
+            document.registrationForm.address.focus();
+            return false;
+
+       
+
+        return true; 
+    }
+</script>
